@@ -11,8 +11,8 @@ export function Post(props) {
             <span>Web Developer</span>
           </div>
 
-          <time title="03 de julho às 18:15h" datetime="2022-07-03 18:15">Publicado há 1h</time>
         </div>
+        <time title="03 de julho às 18:15h" dateTime="2022-07-03 18:15">Publicado há 1h</time>
       </header>
 
       <div className={styles.content}>
