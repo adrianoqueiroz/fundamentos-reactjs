@@ -26,17 +26,27 @@ export function Post({ author, publishedAt, content}) {
   function handleCreateNewComment() {
     event.preventDefault();
     
-    setComments([...comments, newCommentText]);
+    if(newCommentText.trim().length !== 0) {
+      setComments([...comments, newCommentText]);
+    }
+
     setNewCommentText('');
   }
 
   function handleNewCommentChange() {
+    event.target.setCustomValidity('');
     setNewCommentText(event.target.value);
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
   function deleteComment(commentToDelete) {
     setComments(comments.filter(comment => comment !== commentToDelete));
   }
+
+  const isNewCommentEmpty = newCommentText.trim().length === 0;
 
   return (
     <article className={styles.post}>
@@ -71,10 +81,12 @@ export function Post({ author, publishedAt, content}) {
           placeholder="Deixe o seu comentário"
           onChange={handleNewCommentChange}
           value={newCommentText}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
         </footer>
       </form>
 
